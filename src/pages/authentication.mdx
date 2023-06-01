@@ -1,0 +1,80 @@
+import { CodeGroup, Row, Col, Properties, Property } from "../components/mdx.jsx"
+
+export const description =
+  'In this guide, we’ll look at how authentication works.'
+
+# Authentication
+
+You'll need to authenticate your requests to access any of the endpoints in the Pointhub API. In this guide, we'll look at how authentication works. {{ className: 'lead' }}
+
+## Local Authentication {{ tag: 'POST', label: '/v1/auth/signin' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to signin using username and password to get access token.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="username" type="string">
+        The username for the user.
+      </Property>
+      <Property name="password" type="string">
+        The password for the user.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="POST" label="/v1/auth/signin">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.post('/v1/auth/signin', {
+      username: "johndoe",
+      password: "john1234"
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "name": "john doe",
+      "username": "johndoe",
+      "email": "johndoe@example.com",
+      "role": {
+        "name": "admin",
+        "permissions": ["user-create", "user-read", "user-update", "user-delete"]
+      },
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+
+## Bearer Authentication {{ tag: 'POST', label: '/v1/resources' }}
+
+Bearer authentication (also called token authentication) is an HTTP authentication scheme that involves security tokens called bearer tokens.
+
+<Row>
+  <Col>
+    ### Required headers
+
+    <Properties>
+      <Property name="Authorization" type="string">
+        Bearer token for the API request
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Example" tag="POST" label="/v1/resources">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.post('/v1/resources', {}, {
+      headers: {
+        Authorization: 'Bearer <accessToken>'
+      }
+    })
+    ```
+    </CodeGroup>
+  </Col>
+</Row>

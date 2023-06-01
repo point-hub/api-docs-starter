@@ -1,0 +1,362 @@
+import { CodeGroup, Row, Col, Properties, Property } from "../components/mdx.jsx"
+
+export const description =
+  'On this page, we’ll dive into the different role endpoints you can use to manage roles programmatically.'
+
+# Roles
+
+Role-based access control (RBAC) restricts network access based on a person's role within an organization and has become one of the main methods for advanced access control. The roles in RBAC refer to the levels of access that users have to the network.
+
+## The role model
+
+The role model contains all the information about your roles.
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="string">
+    Unique identifier for the role.
+  </Property>
+  <Property name="name" type="string">
+    The name for the role.
+  </Property>
+  <Property name="permissions" type="array<string>">
+    The array of allowed permission name for the role.
+  </Property>
+    <Property name="createdAt" type="datetime">
+    Datetime of when the role was created.
+  </Property>
+  <Property name="createdBy" type="string">
+    User identifier who create the role.
+  </Property>
+  <Property name="updatedAt" type="datetime">
+    Datetime of when the role was updated.
+  </Property>
+  <Property name="updatedBy" type="string">
+    User identifier who update the role.
+  </Property>
+</Properties>
+
+---
+
+## List all roles {{ tag: 'GET', label: '/v1/roles' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your roles.
+
+    # Request
+
+    ### Optional query
+
+    <Properties>
+      <Property name="page" type="integer">
+        The page number of roles returned.
+        - Default `1`
+      </Property>
+      <Property name="pageSize" type="integer">
+        The page size number of roles returned.
+        - Default `10`
+      </Property>
+    </Properties>
+
+    # Response
+
+    <Properties>
+      <Property name="data" type="array<object>">
+        Array of role object
+      </Property>
+      <Property name="data._id" type="string">
+        Unique identifier for the role.
+      </Property>
+      <Property name="data.name" type="string">
+        The name for the role.
+      </Property>
+      <Property name="data.permissions" type="array<string>">
+        The array of allowed permission name for the role.
+      </Property>
+        <Property name="data.createdAt" type="datetime">
+        Datetime of when the role was created.
+      </Property>
+      <Property name="data.createdBy" type="string">
+        User identifier who create the role.
+      </Property>
+      <Property name="data.updatedAt" type="datetime">
+        Datetime of when the role was updated.
+      </Property>
+      <Property name="data.updatedBy" type="string">
+        User identifier who update the role.
+      </Property>
+      <Property name="pagination" type="object">
+        Object of Pagination
+      </Property>
+      <Property name="pagination.page" type="number">
+        Page number.
+      </Property>
+      <Property name="pagination.pageSize" type="number">
+        Number of total document per page.
+      </Property>
+      <Property name="pagination.pageCount" type="number">
+        Total page count.
+      </Property>
+      <Property name="pagination.totalDocument" type="number">
+        Total filtered document.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/roles">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/roles', {
+      params: {
+        page:1,
+        pageSize: 10
+      }
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "data": [
+        {
+          "_id": "637b569149e0c02e1036c35a",
+          "name": "Super Admin",
+          "permissions": ["create-role", "read-role"],
+          "createdBy": "637d83d15d2be122007524bf",
+          "createdAt": "2022-01-01T00:00:00.000Z",
+        },
+        {
+          "_id": "637d83d15d2be122007524bf",
+          "name": "Manager",
+          "permissions": ["create-role", "read-role"],
+          "createdBy": "637d83d15d2be122007524bf",
+          "createdAt": "2022-01-01T00:00:00.000Z",
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument": 2
+      }
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Create a role {{ tag: 'POST', label: '/v1/roles' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to add a new role.
+
+    # Request
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="name" type="string">
+        The name for the role.
+      </Property>
+      <Property name="permissions" type="array<string>">
+        The array of allowed permission name for the role.
+      </Property>
+    </Properties>
+
+    # Response
+
+    <Properties>
+      <Property name="_id" type="string">
+        Unique identifier for the role.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="POST" label="/v1/roles">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.post('/v1/roles', {
+      name: "Administrator",
+      permissions: ['create-role', 'read-role']
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '201' }}
+    {
+      "id": "637d83d15d2be122007524bf"
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Retrieve a role {{ tag: 'GET', label: '/v1/roles/:id' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to retrieve a role by providing their id.
+
+    # Response
+
+    <Properties>
+      <Property name="_id" type="string">
+        Unique identifier for the role.
+      </Property>
+      <Property name="name" type="string">
+        The name for the role.
+      </Property>
+      <Property name="permissions" type="array<string>">
+        The array of allowed permission name for the role.
+      </Property>
+        <Property name="createdAt" type="datetime">
+        Datetime of when the role was created.
+      </Property>
+      <Property name="createdBy" type="string">
+        User identifier who create the role.
+      </Property>
+      <Property name="updatedAt" type="datetime">
+        Datetime of when the role was updated.
+      </Property>
+      <Property name="updatedBy" type="string">
+        User identifier who update the role.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/roles/637d83d15d2be122007524bf">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/roles/637d83d15d2be122007524bf')
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "_id": "637d83d15d2be122007524bf",
+      "name": "Manager",
+      "permissions": ["create-role", "read-role"],
+      "createdBy": "637d83d15d2be122007524bf",
+      "createdAt": "2022-01-01T00:00:00.000Z",
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Update a role {{ tag: 'PATCH', label: '/v1/roles/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to perform an update on a role.
+
+    # Request
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="name" type="string">
+        The name for the role.
+      </Property>
+      <Property name="permissions" type="array<string>">
+        The array of allowed permission name for the role.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="PATCH" label="/v1/roles/637d83d15d2be122007524bf">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.patch('/v1/roles/637d83d15d2be122007524bf', {
+      name: "Administrator",
+      permissions: ['create-role', 'read-role']
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '204' }}
+    // empty response
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Delete a role {{ tag: 'DELETE', label: '/v1/roles/:id' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to delete roles from your role list.
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="DELETE" label="/v1/roles/637d83d15d2be122007524bf">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.delete('/v1/roles/637d83d15d2be122007524bf')
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '204' }}
+    // empty response
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Assign permissions {{ tag: 'POST', label: '/v1/roles/:id/assign-permissions' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to perform an update on a role to assign permission.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="permissions" type="array<object>">
+        The array of permission name for the role.
+      </Property>
+      <Property name="permissions.name" type="string">
+        The name for the permission.
+      </Property>
+      <Property name="permissions.assign" type="boolean">
+        The name for the permission.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="POST" label="/v1/roles/637d83d15d2be122007524bf/assign-permissions">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.post('/v1/roles/637d83d15d2be122007524bf/assign-permissions', {
+      permissions: [
+        {
+          name: 'create-role',
+          assign: true
+        },
+        {
+          name: 'read-role',
+          assign: false
+        }
+      ]
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '204' }}
+    // empty response
+    ```
+    </CodeGroup>
+  </Col>
+</Row>

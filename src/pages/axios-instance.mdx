@@ -1,0 +1,24 @@
+import { CodeGroup, Row, Col, Properties, Property } from "../components/mdx.jsx"
+
+export const description =
+  'In this guide, we will look at how to create axios instance'
+
+# Axios Instance
+
+In this guide, we will look at how to create axios instance. Pointhub using interceptor to inject access token. This will automatically add headers['Authorization'] in each http request.
+
+```typescript {{ title: 'Axios Instance' }}
+// src/axios.ts
+import axios from 'axios'
+import api from '@/config/api'
+import cookie from '@point-hub/vue-cookie'
+
+const instance = axios.create({
+  baseURL: api.baseURL,
+  timeout: api.timeout,
+})
+
+instance.defaults.headers.common['Authorization'] = `Bearer ${cookie.get('token')}`
+
+export default instance
+```

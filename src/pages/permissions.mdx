@@ -1,0 +1,121 @@
+import { CodeGroup, Row, Col, Properties, Property } from "../components/mdx.jsx"
+
+export const description =
+  'On this page, we’ll dive into the different permission endpoints you can use to manage permissions programmatically.'
+
+# Permissions
+
+The permissions is a collection with all the related permission objects attached to roles.
+
+## The permission model
+
+The permission model contains all the information about your permissions.
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="string">
+    Unique identifier for the permission.
+  </Property>
+  <Property name="group" type="string">
+    The group name for the permission.
+  </Property>
+  <Property name="name" type="string">
+    The name for the permission.
+  </Property>
+</Properties>
+
+---
+
+## List all permissions {{ tag: 'GET', label: '/v1/permissions' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your permissions.
+
+    # Request
+
+    ### Optional query
+
+    <Properties>
+      <Property name="group" type="string">
+        The group name for the permission.
+      </Property>
+      <Property name="name" type="string">
+        The name for the permission.
+      </Property>
+    </Properties>
+
+    # Response
+
+    <Properties>
+      <Property name="data" type="array<object>">
+        Array of permission object
+      </Property>
+      <Property name="data._id" type="string">
+        Unique identifier for the permission.
+      </Property>
+      <Property name="data.group" type="string">
+        The group name for the permission.
+      </Property>
+      <Property name="data.name" type="string">
+        The name for the permission.
+      </Property>
+      <Property name="pagination" type="object">
+        Object of Pagination
+      </Property>
+      <Property name="pagination.page" type="number">
+        Page number.
+      </Property>
+      <Property name="pagination.pageSize" type="number">
+        Number of total document per page.
+      </Property>
+      <Property name="pagination.pageCount" type="number">
+        Total page count.
+      </Property>
+      <Property name="pagination.totalDocument" type="number">
+        Total filtered document.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/permissions">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/permissions', {
+      params: {
+        filter: {
+          group: 'role',
+          name: 'create-role'
+        }
+      }
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "permissions": [
+        {
+          "_id": "637b569149e0c02e1036c35a",
+          "group": "role",
+          "name": "create-role",
+        },
+        {
+          "_id": "637d83d15d2be122007524bf",
+          "group": "role",
+          "name": "read-role",
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument": 2
+      }
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>

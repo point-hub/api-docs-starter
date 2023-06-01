@@ -1,0 +1,198 @@
+import { CodeGroup, Row, Col, Properties, Property } from "../components/mdx.jsx"
+
+export const description =
+  'On this page, we’ll dive into the different user endpoints you can use to manage users programmatically.'
+
+# Users
+
+Master Users
+
+## The user model
+
+The user model contains all the information about your users.
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="string">
+    Unique identifier for the user.
+  </Property>
+  <Property name="name" type="string">
+    The full name for the user.
+  </Property>
+  <Property name="email" type="string">
+    The email for the user.
+  </Property>
+  <Property name="username" type="string">
+    The username for the user.
+  </Property>
+  <Property name="password" type="string">
+    The password for the user.
+  </Property>
+  <Property name="role_id" type="string">
+    The role id for the user. 
+  </Property>
+  <Property name="invitedAt" type="datetime">
+    Datetime of when the user was created.
+  </Property>
+  <Property name="invitedBy" type="string">
+    The user who invited this user.
+  </Property>
+  <Property name="joinedAt" type="datetime">
+    Datetime of when the user was joined.
+  </Property>
+  <Property name="updatedAt" type="datetime">
+    Datetime of when the user was updated.
+  </Property>
+  <Property name="updatedBy" type="string">
+    The user who update this data.
+  </Property>
+</Properties>
+
+---
+
+## List all users {{ tag: 'GET', label: '/v1/users' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your users. By default, a maximum of ten users are shown per page.
+
+    # Request
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="page" type="integer">
+        The page number of users returned.
+      </Property>
+      <Property name="pageSize" type="integer">
+        The page size number of users returned.
+      </Property>
+    </Properties>
+
+    # Response 
+    <Properties>
+      <Property name="_id" type="string">
+        Unique identifier for the user.
+      </Property>
+      <Property name="name" type="string">
+        The full name for the user.
+      </Property>
+      <Property name="email" type="string">
+        The email for the user.
+      </Property>
+      <Property name="username" type="string">
+        The username for the user.
+      </Property>
+      <Property name="password" type="string">
+        The password for the user.
+      </Property>
+      <Property name="role" type="object">
+        The role for the user. 
+      </Property>
+      <Property name="role._id" type="string">
+        Unique identifier for the role.
+      </Property>
+      <Property name="role.name" type="string">
+        The name for the role.
+      </Property>
+      <Property name="role.permissions" type="array<string>">
+        The permissions for the role.
+      </Property>
+      <Property name="invitedAt" type="datetime">
+        Datetime of when the user was created.
+      </Property>
+      <Property name="invitedBy" type="string">
+        The user who invited this user.
+      </Property>
+      <Property name="joinedAt" type="datetime">
+        Datetime of when the user was joined.
+      </Property>
+      <Property name="updatedAt" type="datetime">
+        Datetime of when the user was updated.
+      </Property>
+      <Property name="updatedBy" type="string">
+        The user who update this data.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/users">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/users', {
+      params: {
+        page:1,
+        pageSize: 10
+      }
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "users": [
+        {
+          "_id": "637b569149e0c02e1036c35a",
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "username": "johndoe",
+          "role": {
+            "_id": "637d83d15d2be131007524cb",
+            "name": "admin",
+            "permissions": ["invite-user", "edit-user"],
+          },
+          "invitedAt": "2022-01-01T00:00:00.000Z",
+          "invitedBy": "637d83d15d2be122007524bf",
+          "joinedAt": "2022-01-02T00:00:00.000Z",
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument": 1
+      }
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Invite a users {{ tag: 'POST', label: '/v1/users/invite' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows invite user to this app
+
+    # Request
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="email" type="string">
+        The page number of users returned.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="POST" label="/v1/users/invite">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.post('/v1/users/invite', {
+      email: "jane@example.com"
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '204' }}
+    // empty response
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---

@@ -1,0 +1,157 @@
+import { CodeGroup, Row, Col, Properties, Property } from "../components/mdx.jsx"
+
+export const description =
+  'In this guide, we will talk about HTTP Response Status Codes. Status codes are issued by a server in response to a client\'s request.'
+
+# Http Status
+
+In this guide, we will talk about HTTP Response Status Codes. Status codes are issued by a server in response to a client's request.
+
+---
+
+## 2xx Successful
+
+The request was successfully received, understood, and accepted
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="200 - OK">
+        Everything worked as expected.
+      </Property>
+      <Property name="201 - Created">
+        A successful response of CREATE requests.
+      </Property>
+      <Property name="204 - No Content">
+        A successful response of UPDATE or DELETE requests.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      ...
+    }
+    ```
+    ```json {{ title: '201' }}
+    {
+      "_id": '637b569149e0c02e1036c35a',
+    }
+    ```
+    ```json {{ title: '204' }}
+    // empty Response
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+## 4xx Client Error
+
+The request contains bad syntax or cannot be fulfilled
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="400 - Bad Request">
+        The request was unacceptable, often due to missing a required parameter.
+      </Property>
+      <Property name="401 - Unauthorized">
+        username or password or bearer-token invalid.
+      </Property>
+      <Property name="403 - Forbidden">
+        The API key doesn't have permissions to perform the request.
+      </Property>
+      <Property name="404 - Not Found">
+        The requested resource doesn't exist.
+      </Property>
+      <Property name="422 - Unprocessable Entity">
+        Validation Fails.
+      </Property>
+      <Property name="429 - Too Many Requests">
+        Hit the API too quickly. We recommend an exponential backoff of your requests.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Error Response">
+    ```json {{ title: '400' }}
+    {
+      "code": 400,
+      "status": "Bad Request",
+      "message": "The server cannot process the request."
+    }
+    ```
+    ```json {{ title: '401' }}
+    {
+      "code": 401,
+      "status": "Unauthorized",
+      "message": "Authentication credentials is invalid."
+    }
+    ```
+    ```json {{ title: '403' }}
+    {
+      "code": 403,
+      "status": "Forbidden",
+      "message": "Don't have necessary permissions for this resource."
+    }
+
+    ```
+    ```json {{ title: '404' }}
+    {
+      "code": 404,
+      "status": "Not Found",
+      "message": "The URL is not recognized or endpoint is valid but the resource itself does not exist."
+    }
+
+    ```
+    ```json {{ title: '422' }}
+    {
+      "code": 422,
+      "status": "Unprocessable Entity",
+      "message": "The request was well-formed but was unable to be followed due to semantic errors.",
+      "errors": {
+        "username": [
+          "The username is exists."
+        ],
+        "password": [
+          "The password field is required."
+        ]
+      }
+    }
+    ```
+    ```json {{ title: '429' }}
+    {
+      "code": 429,
+      "status": "Too Many Requests",
+      "message": "Sent too many requests in a given amount of time."
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+## 5xx Server Error
+
+The server failed to fulfil an apparently valid request
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="500 - Internal Server Error">
+        Something went wrong on server.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Error Response">
+    ```json {{ title: '500' }}
+    {
+      "code": 500,
+      "status": "Internal Server Error",
+      "message": "An unexpected condition was encountered."
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
