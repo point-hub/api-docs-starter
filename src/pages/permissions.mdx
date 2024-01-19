@@ -7,26 +7,6 @@ export const description =
 
 The permissions is a collection with all the related permission objects attached to roles.
 
-## The permission model
-
-The permission model contains all the information about your permissions.
-
-### Properties
-
-<Properties>
-  <Property name="_id" type="string">
-    Unique identifier for the permission.
-  </Property>
-  <Property name="group" type="string">
-    The group name for the permission.
-  </Property>
-  <Property name="name" type="string">
-    The name for the permission.
-  </Property>
-</Properties>
-
----
-
 ## List all permissions {{ tag: 'GET', label: '/v1/permissions' }}
 
 <Row>
@@ -68,13 +48,13 @@ The permission model contains all the information about your permissions.
       <Property name="pagination.page" type="number">
         Page number.
       </Property>
-      <Property name="pagination.pageSize" type="number">
+      <Property name="pagination.page_size" type="number">
         Number of total document per page.
       </Property>
-      <Property name="pagination.pageCount" type="number">
+      <Property name="pagination.page_count" type="number">
         Total page count.
       </Property>
-      <Property name="pagination.totalDocument" type="number">
+      <Property name="pagination.total_document" type="number">
         Total filtered document.
       </Property>
     </Properties>
@@ -87,7 +67,7 @@ The permission model contains all the information about your permissions.
       params: {
         filter: {
           group: 'role',
-          name: 'create-role'
+          name: 'role:create'
         }
       }
     })
@@ -100,19 +80,19 @@ The permission model contains all the information about your permissions.
         {
           "_id": "637b569149e0c02e1036c35a",
           "group": "role",
-          "name": "create-role",
+          "name": "role:create",
         },
         {
           "_id": "637d83d15d2be122007524bf",
           "group": "role",
-          "name": "read-role",
+          "name": "role:read",
         },
       ],
       "pagination": {
         "page": 1,
-        "pageSize": 1,
-        "pageCount": 1,
-        "totalDocument": 2
+        "page_size": 1,
+        "page_count": 1,
+        "total_document": 2
       }
     }
     ```

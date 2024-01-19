@@ -7,38 +7,6 @@ export const description =
 
 Role-based access control (RBAC) restricts network access based on a person's role within an organization and has become one of the main methods for advanced access control. The roles in RBAC refer to the levels of access that users have to the network.
 
-## The role model
-
-The role model contains all the information about your roles.
-
-### Properties
-
-<Properties>
-  <Property name="_id" type="string">
-    Unique identifier for the role.
-  </Property>
-  <Property name="name" type="string">
-    The name for the role.
-  </Property>
-  <Property name="permissions" type="array<string>">
-    The array of allowed permission name for the role.
-  </Property>
-    <Property name="createdAt" type="datetime">
-    Datetime of when the role was created.
-  </Property>
-  <Property name="createdBy" type="string">
-    User identifier who create the role.
-  </Property>
-  <Property name="updatedAt" type="datetime">
-    Datetime of when the role was updated.
-  </Property>
-  <Property name="updatedBy" type="string">
-    User identifier who update the role.
-  </Property>
-</Properties>
-
----
-
 ## List all roles {{ tag: 'GET', label: '/v1/roles' }}
 
 <Row>
@@ -55,7 +23,7 @@ The role model contains all the information about your roles.
         The page number of roles returned.
         - Default `1`
       </Property>
-      <Property name="pageSize" type="integer">
+      <Property name="page_size" type="integer">
         The page size number of roles returned.
         - Default `10`
       </Property>
@@ -76,16 +44,16 @@ The role model contains all the information about your roles.
       <Property name="data.permissions" type="array<string>">
         The array of allowed permission name for the role.
       </Property>
-        <Property name="data.createdAt" type="datetime">
+        <Property name="data.created_date" type="datetime">
         Datetime of when the role was created.
       </Property>
-      <Property name="data.createdBy" type="string">
+      <Property name="data.created_by" type="string">
         User identifier who create the role.
       </Property>
-      <Property name="data.updatedAt" type="datetime">
+      <Property name="data.updated_date" type="datetime">
         Datetime of when the role was updated.
       </Property>
-      <Property name="data.updatedBy" type="string">
+      <Property name="data.updated_by" type="string">
         User identifier who update the role.
       </Property>
       <Property name="pagination" type="object">
@@ -94,13 +62,13 @@ The role model contains all the information about your roles.
       <Property name="pagination.page" type="number">
         Page number.
       </Property>
-      <Property name="pagination.pageSize" type="number">
+      <Property name="pagination.page_size" type="number">
         Number of total document per page.
       </Property>
-      <Property name="pagination.pageCount" type="number">
+      <Property name="pagination.page_count" type="number">
         Total page count.
       </Property>
-      <Property name="pagination.totalDocument" type="number">
+      <Property name="pagination.total_document" type="number">
         Total filtered document.
       </Property>
     </Properties>
@@ -111,7 +79,7 @@ The role model contains all the information about your roles.
     const response = axios.get('/v1/roles', {
       params: {
         page:1,
-        pageSize: 10
+        page_size: 10
       }
     })
     ```
@@ -123,23 +91,23 @@ The role model contains all the information about your roles.
         {
           "_id": "637b569149e0c02e1036c35a",
           "name": "Super Admin",
-          "permissions": ["create-role", "read-role"],
-          "createdBy": "637d83d15d2be122007524bf",
-          "createdAt": "2022-01-01T00:00:00.000Z",
+          "permissions": ["role:create", "role:read"],
+          "created_by": "637d83d15d2be122007524bf",
+          "created_date": "2022-01-01T00:00:00.000Z",
         },
         {
           "_id": "637d83d15d2be122007524bf",
           "name": "Manager",
-          "permissions": ["create-role", "read-role"],
-          "createdBy": "637d83d15d2be122007524bf",
-          "createdAt": "2022-01-01T00:00:00.000Z",
+          "permissions": ["role:create", "role:read"],
+          "created_by": "637d83d15d2be122007524bf",
+          "created_date": "2022-01-01T00:00:00.000Z",
         },
       ],
       "pagination": {
         "page": 1,
-        "pageSize": 1,
-        "pageCount": 1,
-        "totalDocument": 2
+        "page_size": 1,
+        "page_count": 1,
+        "total_document": 2
       }
     }
     ```
@@ -182,14 +150,14 @@ The role model contains all the information about your roles.
     ```typescript {{ title: 'axios' }}
     const response = axios.post('/v1/roles', {
       name: "Administrator",
-      permissions: ['create-role', 'read-role']
+      permissions: ['role:create', 'role:read']
     })
     ```
     </CodeGroup>
     <CodeGroup title="Response">
     ```json {{ title: '201' }}
     {
-      "id": "637d83d15d2be122007524bf"
+      "inserted_id": "637d83d15d2be122007524bf"
     }
     ```
     </CodeGroup>
@@ -216,22 +184,22 @@ The role model contains all the information about your roles.
       <Property name="permissions" type="array<string>">
         The array of allowed permission name for the role.
       </Property>
-        <Property name="createdAt" type="datetime">
+        <Property name="created_date" type="datetime">
         Datetime of when the role was created.
       </Property>
-      <Property name="createdBy" type="string">
+      <Property name="created_by" type="string">
         User identifier who create the role.
       </Property>
-      <Property name="updatedAt" type="datetime">
+      <Property name="updated_date" type="datetime">
         Datetime of when the role was updated.
       </Property>
-      <Property name="updatedBy" type="string">
+      <Property name="updated_by" type="string">
         User identifier who update the role.
       </Property>
     </Properties>
   </Col>
   <Col sticky>
-    <CodeGroup title="Request" tag="GET" label="/v1/roles/637d83d15d2be122007524bf">
+    <CodeGroup title="Request" tag="GET" label="/v1/roles/:id">
     ```typescript {{ title: 'axios' }}
     const response = axios.get('/v1/roles/637d83d15d2be122007524bf')
     ```
@@ -241,9 +209,9 @@ The role model contains all the information about your roles.
     {
       "_id": "637d83d15d2be122007524bf",
       "name": "Manager",
-      "permissions": ["create-role", "read-role"],
-      "createdBy": "637d83d15d2be122007524bf",
-      "createdAt": "2022-01-01T00:00:00.000Z",
+      "permissions": ["role:create", "role:read"],
+      "created_by": "637d83d15d2be122007524bf",
+      "created_date": "2022-01-01T00:00:00.000Z",
     }
     ```
     </CodeGroup>
@@ -274,17 +242,20 @@ The role model contains all the information about your roles.
 
   </Col>
   <Col sticky>
-    <CodeGroup title="Request" tag="PATCH" label="/v1/roles/637d83d15d2be122007524bf">
+    <CodeGroup title="Request" tag="PATCH" label="/v1/roles/:id">
     ```typescript {{ title: 'axios' }}
     const response = axios.patch('/v1/roles/637d83d15d2be122007524bf', {
       name: "Administrator",
-      permissions: ['create-role', 'read-role']
+      permissions: ['role:create', 'role:read']
     })
     ```
     </CodeGroup>
     <CodeGroup title="Response">
-    ```json {{ title: '204' }}
-    // empty response
+    ```json {{ title: '200' }}
+    {
+      "matched_count": 1,
+      "modified_count": 1
+    }
     ```
     </CodeGroup>
   </Col>
@@ -299,14 +270,16 @@ The role model contains all the information about your roles.
     This endpoint allows you to delete roles from your role list.
   </Col>
   <Col sticky>
-    <CodeGroup title="Request" tag="DELETE" label="/v1/roles/637d83d15d2be122007524bf">
+    <CodeGroup title="Request" tag="DELETE" label="/v1/roles/:id">
     ```typescript {{ title: 'axios' }}
     const response = axios.delete('/v1/roles/637d83d15d2be122007524bf')
     ```
     </CodeGroup>
     <CodeGroup title="Response">
-    ```json {{ title: '204' }}
-    // empty response
+    ```json {{ title: '200' }}
+    {
+      "deleted_count": 1
+    }
     ```
     </CodeGroup>
   </Col>
@@ -325,28 +298,28 @@ The role model contains all the information about your roles.
 
     <Properties>
       <Property name="permissions" type="array<object>">
-        The array of permission name for the role.
+        The array of permission object for the role.
       </Property>
       <Property name="permissions.name" type="string">
         The name for the permission.
       </Property>
       <Property name="permissions.assign" type="boolean">
-        The name for the permission.
+        The assign status true or false
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
-    <CodeGroup title="Request" tag="POST" label="/v1/roles/637d83d15d2be122007524bf/assign-permissions">
+    <CodeGroup title="Request" tag="POST" label="/v1/roles/:id/assign-permissions">
     ```typescript {{ title: 'axios' }}
     const response = axios.post('/v1/roles/637d83d15d2be122007524bf/assign-permissions', {
       permissions: [
         {
-          name: 'create-role',
+          name: 'role:create',
           assign: true
         },
         {
-          name: 'read-role',
+          name: 'role:read',
           assign: false
         }
       ]
@@ -354,8 +327,11 @@ The role model contains all the information about your roles.
     ```
     </CodeGroup>
     <CodeGroup title="Response">
-    ```json {{ title: '204' }}
-    // empty response
+    ```json {{ title: '200' }}
+    {
+      "matched_count": 1,
+      "modified_count": 1
+    }
     ```
     </CodeGroup>
   </Col>

@@ -21,7 +21,7 @@ In this guide, we will look at how to work with paginated responses when queryin
       <Property name="page" type="integer">
         The page number of roles returned.
       </Property>
-      <Property name="pageSize" type="integer">
+      <Property name="page_size" type="integer">
         The page size number of roles returned.
       </Property>
     </Properties>
@@ -32,7 +32,7 @@ In this guide, we will look at how to work with paginated responses when queryin
     ```typescript {{ title: 'axios' }}
     const response = axios.get('/v1/roles', {
       page:1,
-      pageSize: 10
+      page_size: 10
     })
     ```
     </CodeGroup>
@@ -45,9 +45,9 @@ In this guide, we will look at how to work with paginated responses when queryin
       ],
       "pagination": {
         "page": 1,
-        "pageSize": 10,
-        "pageCount": 1,
-        "totalDocument": 2
+        "page_size": 10,
+        "page_count": 1,
+        "total_document": 2
       }
     }
     ```

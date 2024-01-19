@@ -5,51 +5,7 @@ export const description =
 
 # Users
 
-Master Users
-
-## The user model
-
-The user model contains all the information about your users.
-
-### Properties
-
-<Properties>
-  <Property name="_id" type="string">
-    Unique identifier for the user.
-  </Property>
-  <Property name="name" type="string">
-    The full name for the user.
-  </Property>
-  <Property name="email" type="string">
-    The email for the user.
-  </Property>
-  <Property name="username" type="string">
-    The username for the user.
-  </Property>
-  <Property name="password" type="string">
-    The password for the user.
-  </Property>
-  <Property name="role_id" type="string">
-    The role id for the user. 
-  </Property>
-  <Property name="invitedAt" type="datetime">
-    Datetime of when the user was created.
-  </Property>
-  <Property name="invitedBy" type="string">
-    The user who invited this user.
-  </Property>
-  <Property name="joinedAt" type="datetime">
-    Datetime of when the user was joined.
-  </Property>
-  <Property name="updatedAt" type="datetime">
-    Datetime of when the user was updated.
-  </Property>
-  <Property name="updatedBy" type="string">
-    The user who update this data.
-  </Property>
-</Properties>
-
----
+User
 
 ## List all users {{ tag: 'GET', label: '/v1/users' }}
 
@@ -66,7 +22,7 @@ The user model contains all the information about your users.
       <Property name="page" type="integer">
         The page number of users returned.
       </Property>
-      <Property name="pageSize" type="integer">
+      <Property name="page_size" type="integer">
         The page size number of users returned.
       </Property>
     </Properties>
@@ -100,19 +56,19 @@ The user model contains all the information about your users.
       <Property name="role.permissions" type="array<string>">
         The permissions for the role.
       </Property>
-      <Property name="invitedAt" type="datetime">
+      <Property name="invited_date" type="datetime">
         Datetime of when the user was created.
       </Property>
-      <Property name="invitedBy" type="string">
+      <Property name="invited_by" type="string">
         The user who invited this user.
       </Property>
-      <Property name="joinedAt" type="datetime">
+      <Property name="joined_date" type="datetime">
         Datetime of when the user was joined.
       </Property>
-      <Property name="updatedAt" type="datetime">
+      <Property name="updated_date" type="datetime">
         Datetime of when the user was updated.
       </Property>
-      <Property name="updatedBy" type="string">
+      <Property name="updated_by" type="string">
         The user who update this data.
       </Property>
     </Properties>
@@ -123,7 +79,7 @@ The user model contains all the information about your users.
     const response = axios.get('/v1/users', {
       params: {
         page:1,
-        pageSize: 10
+        page_size: 10
       }
     })
     ```
@@ -142,16 +98,16 @@ The user model contains all the information about your users.
             "name": "admin",
             "permissions": ["invite-user", "edit-user"],
           },
-          "invitedAt": "2022-01-01T00:00:00.000Z",
-          "invitedBy": "637d83d15d2be122007524bf",
-          "joinedAt": "2022-01-02T00:00:00.000Z",
+          "invited_date": "2022-01-01T00:00:00.000Z",
+          "invited_by": "637d83d15d2be122007524bf",
+          "joined_date": "2022-01-02T00:00:00.000Z",
         },
       ],
       "pagination": {
         "page": 1,
-        "pageSize": 1,
-        "pageCount": 1,
-        "totalDocument": 1
+        "page_size": 1,
+        "page_count": 1,
+        "total_document": 1
       }
     }
     ```
@@ -174,7 +130,7 @@ The user model contains all the information about your users.
 
     <Properties>
       <Property name="email" type="string">
-        The page number of users returned.
+        The email of the invited user.
       </Property>
     </Properties>
 
