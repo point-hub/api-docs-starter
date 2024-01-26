@@ -72,7 +72,7 @@ export function Properties({ children }) {
   )
 }
 
-export function Property({ name, type, children }) {
+export function Property({ name, type, required, children }) {
   return (
     <li className="m-0 px-0 py-4 first:pt-0 last:pb-0">
       <dl className="m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -85,6 +85,9 @@ export function Property({ name, type, children }) {
           {type}
         </dd>
         <dt className="sr-only">Description</dt>
+        <dd className="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+          {required && <div className="font-mono text-xs text-zinc-400 dark:text-zinc-500">required</div>}
+        </dd>
         <dd className="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">
           {children}
         </dd>
