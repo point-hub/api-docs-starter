@@ -10,6 +10,14 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN npm install -g bun
+
+# environment variable
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL $VITE_API_BASE_URL
+ARG VITE_API_TIMEOUT
+ENV VITE_API_TIMEOUT $VITE_API_TIMEOUT
+
+# build app
 RUN bun run build
 
 FROM node:20 AS runner
